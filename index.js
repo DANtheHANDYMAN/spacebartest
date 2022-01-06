@@ -4,6 +4,7 @@
 var style = `
 #hack_container {
     position: absolute;
+    z-index: 5;
     left: 0;
     top: 0;
     display: flex;
@@ -33,6 +34,11 @@ var hack_style = document.createElement('style');
 hack_style.innerHTML = style;
 
 document.body.append(hack_style);
+
+
+var script = document.createElement("script");
+script.src = "move_div.js";
+document.head.appendChild(script);
 
 
 alert("eee")
