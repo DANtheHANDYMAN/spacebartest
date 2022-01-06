@@ -1,6 +1,40 @@
 // setInterval(() => {
 //     addHit()
 // }, 10)
+var style = `
+#hack_container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    background-color: black;
+    padding: 10px;
+}
+.hack_btn {
+    padding: 10px;
+    color: green;
+    border: 1px solid grey;
+    background-color: black;
+}
+
+
+`;
+var hack_container = document.createElement('div');
+hack_container.setAttribute('id','hack_container');
+
+var hack_btn1 = document.createElement('button');
+hack_btn1.setAttribute("id", "hack_btn1");
+hack_btn1.setAttribute("class", "hack_btn");
+
+hack_container.append(hack_btn1);
+document.body.append(hack_container);
+
+var hack_style = document.createElement('style');
+hack_style.innerHTML = style;
+
+document.body.append(hack_style);
+
+
 alert("eee")
 var addHit = function () {
     console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') //it stills goes after ernduing
