@@ -1,21 +1,36 @@
 // setInterval(() => {
 //     addHit()
 // }, 10)
+
+function offset(el) {
+  var rect = el.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
+}
+
+// example use
+var div = document.querySelector("#clickarea");
+var divOffset = offset(div);
+console.log(divOffset.left, divOffset.top);
 var style = `
 #hack_container {
     position: absolute;
     z-index: 5;
-    left: 0;
-    top: 0;
+    left: ${divOffset.left}px;
+    top: ${divOffset.top}px;
     display: flex;
     background-color: black;
     padding: 10px;
 }
 .hack_btn {
     padding: 10px;
-    color: green;
-    border: 1px solid grey;
+    color: #096;
+    border-color: #096;
+    border: 3px solid;
     background-color: black;
+    border-radius: 2px;
+   
 }
 
 
@@ -26,6 +41,8 @@ hack_container.setAttribute('id','hack_container');
 var hack_btn1 = document.createElement('button');
 hack_btn1.setAttribute("id", "hack_btn1");
 hack_btn1.setAttribute("class", "hack_btn");
+hack_btn1.textContent = "Ruin The Fun (sorry does nothing lol)";
+
 
 hack_container.append(hack_btn1);
 document.body.append(hack_container);
@@ -35,10 +52,56 @@ hack_style.innerHTML = style;
 
 document.body.append(hack_style);
 
+dragElement(document.getElementById("hack_container"));
 
-var script = document.createElement("script");
-script.src = "move_div.js";
-document.head.appendChild(script);
+function dragElement(elmnt) {
+  var pos1 = 0,
+    pos2 = 0,
+    pos3 = 0,
+    pos4 = 0;
+  if (document.getElementById("hack_container")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById("hack_container").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+    elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+
+// var script = document.createElement("script");
+// script.src = "move_div.js";
+// document.head.appendChild(script);
 
 
 alert("eee")
