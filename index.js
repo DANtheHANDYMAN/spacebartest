@@ -1,6 +1,7 @@
 // setInterval(() => {
 //     addHit()
 // }, 10)
+alert("eee")
 var addHit = function () {
     console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') //it stills goes after ernduing
   if (0 === hits) {
